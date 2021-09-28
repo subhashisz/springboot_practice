@@ -1,27 +1,27 @@
 package com.myapp.services.implementers;
 
-import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.myapp.exception.CustomeException;
+import com.myapp.exception.DepartmentNotFoundException;
 import com.myapp.model.Department;
 import com.myapp.repository.DepartmentRepository;
 import com.myapp.services.DepartmentService;
 
+import java.util.List;
+import java.util.Objects;
+import java.util.Optional;
+
 @Service
-public class DepartmentServiceImpl implements DepartmentService {
+public class DepartmentServiceImpl implements DepartmentService{
 
-	@Autowired
-	private DepartmentRepository departmentRepository;
+    @Autowired
+    private DepartmentRepository departmentRepository;
 
-	@Override
-	public Department saveDepartment(Department dept) {
-		return departmentRepository.save(dept);
-	}
+    @Override
+    public Department saveDepartment(Department department) {
+        return departmentRepository.save(department);
+    }
 
     @Override
     public List<Department> fetchDepartmentList() {
@@ -29,12 +29,12 @@ public class DepartmentServiceImpl implements DepartmentService {
     }
 
     @Override
-    public Department fetchDepartmentById(Long departmentId) throws CustomeException {
+    public Department fetchDepartmentById(Long departmentId) throws DepartmentNotFoundException {
         Optional<Department> department =
                 departmentRepository.findById(departmentId);
 
         if(!department.isPresent()) {
-            throw new CustomeException("Department Not Available");
+            throw new DepartmentNotFoundException("Department Not Available");
         }
 
         return  department.get();
@@ -71,5 +71,4 @@ public class DepartmentServiceImpl implements DepartmentService {
     public Department fetchDepartmentByName(String departmentName) {
         return departmentRepository.findByDepartmentNameIgnoreCase(departmentName);
     }
-
 }

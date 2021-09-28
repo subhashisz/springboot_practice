@@ -20,7 +20,7 @@ class DepartmentRepositoryTest {
 	private TestEntityManager entityManager;
 
 	@BeforeEach
-	void setUp() {
+	void setUp() {     
 		Department department = Department.builder().departmentName("Mechanical Engineering").departmentCode("ME - 011")
 				.departmentAddress("Delhi").build();
 
